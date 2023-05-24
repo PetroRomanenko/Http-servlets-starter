@@ -1,17 +1,15 @@
 package com.ferros.http.socket;
 
-import java.io.DataInput;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
-import java.net.Socket;
 import java.util.Scanner;
 
 public class SocketServerRunner {
+
     public static void main(String[] args) throws IOException {
         try (var serverSocket = new ServerSocket(7777);
-             //метод accept() блокирующий
              var socket = serverSocket.accept();
              var outputStream = new DataOutputStream(socket.getOutputStream());
              var inputStream = new DataInputStream(socket.getInputStream());
@@ -26,4 +24,3 @@ public class SocketServerRunner {
         }
     }
 }
-

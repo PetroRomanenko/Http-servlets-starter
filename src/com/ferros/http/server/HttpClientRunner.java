@@ -9,7 +9,6 @@ import java.nio.file.Path;
 import java.util.concurrent.ExecutionException;
 
 import static java.net.http.HttpRequest.BodyPublishers.ofFile;
-import static java.net.http.HttpRequest.BodyPublishers.ofString;
 
 public class HttpClientRunner {
 
@@ -21,29 +20,7 @@ public class HttpClientRunner {
         var request = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:9000"))
                 .header("content-type", "application/json")
-                .POST(ofString("""
-                        {
-                          "id": 25,
-                          "startRow": {
-                            "method": "GET",
-                            "url": "www.google.com",
-                            "version": 1.1
-                          },
-                          "headers": [
-                            {
-                              "name": "content-type",
-                              "value": "text/html"
-                            },
-                            {
-                              "name": "accept",
-                              "value": "application/json"
-                            }
-                          ],
-                          "body": {
-                            "type": "text/plain"
-                          }
-                        }
-                        """))
+                .POST(ofFile(Path.of("resources", "first.json")))
                 .build();
 
         var response = httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString());
@@ -53,6 +30,8 @@ public class HttpClientRunner {
 //        System.out.println(response.body());
         System.out.println(response3.get().body());
     }
+
+
 
 
 
